@@ -18,6 +18,9 @@ class TemporalVariableTransformer(BaseEstimator, TransformerMixin):
 
         return self
 
+        # check
+        # https://stackoverflow.com/questions/43380042/purpose-of-return-self-python
+
     def transform(self, X):
 
         X = X.copy()
@@ -26,7 +29,7 @@ class TemporalVariableTransformer(BaseEstimator, TransformerMixin):
             X[feature] = X[self.reference_variable] -X[feature]
         return X
 
-        
+
 
 class Mapper(BaseEstimator, TransformerMixin):
 
