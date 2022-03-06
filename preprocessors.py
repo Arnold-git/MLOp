@@ -38,8 +38,8 @@ class Mapper(BaseEstimator, TransformerMixin):
     if not isinstance(variables, list):
       raise ValueError('variables should be a list')
 
-      self.variables = variables
-      self.mappings = mappings
+    self.variables = variables
+    self.mappings = mappings
 
   def fit(self, X, y = None):
 
