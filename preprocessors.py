@@ -62,7 +62,7 @@ class MeanImputer(BaseEstimator, TransformerMixin):
   def __init__(self, variables):
     if not isinstance(variables, list):
       raise ValueError('Variable should be a list')
-      self.variables = variables
+    self.variables = variables
 
   def fit(self, X, y=None):
     # put mean value for each variable in dictionary
@@ -72,4 +72,41 @@ class MeanImputer(BaseEstimator, TransformerMixin):
     X = X.copy()
     for feature in self.variables:
       X[feature].fillna(self.imputer_dict_[feature],
-                                                inplacw=True)
+                                                inplace=True)
+
+
+    return X
+
+
+class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
+
+  """Group infrequent categories into a single string"""
+
+  def __init__(self,  variables, tol=0.05):
+    # specific default arguement before non-default arguement
+
+    if not isinstance(variables, list):
+      raise ValueError('variables should be a list')
+    if not isinstance(tol, float):
+      raise ValueError('tol should be a float')
+
+    self.variables = variables
+    self.tol = tol
+  
+  def fit(self, X, y=None):
+
+    self.encoder_dict_ = {}
+
+    for var in self.variables:
+
+      t = pd.Series(X[var].value_counts(normalize=True))
+
+      self.encoder_dict_[var] = list(t[t >= self.tol].index)
+
+    return self
+
+  def transform(self, X):
+    X = X.copy()
+    for feature in self.variables:
+      X[feature] = np.where(
+        X[feature].isin(self.encoder_dict_[feature]), X[feature], 'Rare')
