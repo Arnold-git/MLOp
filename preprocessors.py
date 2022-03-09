@@ -53,3 +53,23 @@ class Mapper(BaseEstimator, TransformerMixin):
       X[feature] = X[feature].map(self.mappings)
 
       return X
+
+
+class MeanImputer(BaseEstimator, TransformerMixin):
+
+  "Numerical missing value imputer"
+
+  def __init__(self, variables):
+    if not isinstance(variables, list):
+      raise ValueError('Variable should be a list')
+      self.variables = variables
+
+  def fit(self, X, y=None):
+    # put mean value for each variable in dictionary
+    self.imputer_dict_ = X[self.variables].mean().to_dict()
+    return self
+  def transform(self, X):
+    X = X.copy()
+    for feature in self.variables:
+      X[feature].fillna(self.imputer_dict_[feature],
+                                                inplacw=True)
