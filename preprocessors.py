@@ -110,3 +110,35 @@ class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
     for feature in self.variables:
       X[feature] = np.where(
         X[feature].isin(self.encoder_dict_[feature]), X[feature], 'Rare')
+
+    return X
+
+class CategoricaEncoder(BaseEstimator, TransformerMixin):
+
+  def __init__(self, variables):
+
+    if not isinstance(variables, list):
+      raise ValueError('variables should be a list')
+
+    self.variables = variables
+
+  def fir(self, X, y):
+    temp = pd.concat([X, y], axis = 1)
+    temp.columns = list(X.columns) + ['target']
+
+    self.encoder_dict_ = {}
+
+    for var in self.variables:
+      t = temp.groupby([var])['target'].mean().sort_values(ascending=True).index
+      self.encoder_dict_[var] = {k:1 for i, k in enumerate(t, 0)}
+
+
+    return self
+
+  def transform(self, X):
+
+    X = X.copy()
+    for feature in self.variables:
+      X[feature] = X[feature].map(self.encoder_dict_[feature])
+
+      return X
