@@ -27,6 +27,7 @@ class TemporalVariableTransformer(BaseEstimator, TransformerMixin):
 
         for feature in self.variables:
             X[feature] = X[self.reference_variable] -X[feature]
+        
         return X
 
 
@@ -52,7 +53,7 @@ class Mapper(BaseEstimator, TransformerMixin):
     for feature in self.variables:
       X[feature] = X[feature].map(self.mappings)
 
-      return X
+    return X
 
 
 class MeanImputer(BaseEstimator, TransformerMixin):
