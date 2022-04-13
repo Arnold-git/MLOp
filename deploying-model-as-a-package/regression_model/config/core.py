@@ -65,3 +65,9 @@ class Config(BaseModel):
 
     app_config: AppConfig
     model_config: ModelConfig
+ 
+
+def find_config_file() -> Path:
+    """Locate the configuration file"""
+    if CONFIG_FILE_PATH.is_file():
+        
