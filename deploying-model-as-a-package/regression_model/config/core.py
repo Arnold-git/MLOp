@@ -70,4 +70,5 @@ class Config(BaseModel):
 def find_config_file() -> Path:
     """Locate the configuration file"""
     if CONFIG_FILE_PATH.is_file():
-        
+        return CONFIG_FILE_PATH
+    raise Exception(f'Config not found at {CONFIG_FILE_PATH!r}')
