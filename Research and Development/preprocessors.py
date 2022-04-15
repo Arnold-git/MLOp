@@ -33,6 +33,7 @@ class TemporalVariableTransformer(BaseEstimator, TransformerMixin):
 
 
 class Mapper(BaseEstimator, TransformerMixin):
+  
 
   def __init__(self, variables, mappings):
 
