@@ -11,6 +11,7 @@ from regression_model.config.core import DATASET_DIR, TRAINED_MODEL_DIR, config
 
 
 def load_dataset(*, file_name: str) -> pd.DataFrame:
+    """Load dataset to memory"""
     dataframe = pd.read_csv(Path(f"{DATASET_DIR}/{file_name}"))
     dataframe['MSSubClass'] = dataframe['MSSubClass'].astype('O')
 
