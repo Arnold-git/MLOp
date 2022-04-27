@@ -1,6 +1,3 @@
-from distutils.command.config import config
-from tkinter import N
-from tkinter.messagebox import NO
 import numpy as np
 from config.core import config
 from pipeline import price_pipe
