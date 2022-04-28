@@ -80,7 +80,7 @@ price_pipe = Pipeline(
         (
             "mapper_qual",
             pp.Mapper(
-                variables=config.model_config.qual_mappings,
+                variables=config.model_config.qual_vars,
                 mappings=config.model_config.qual_mappings,
             ),
         ),

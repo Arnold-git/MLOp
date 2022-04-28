@@ -2,7 +2,6 @@ import typing as t
 from pathlib import Path
 
 import joblib
-from matplotlib import transforms
 import pandas as pd
 from sklearn.pipeline import Pipeline
 
