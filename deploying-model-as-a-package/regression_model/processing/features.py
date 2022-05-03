@@ -20,7 +20,7 @@ class TemporalVariableTransformer(BaseEstimator, TransformerMixin):
         return self
 
         # check
-        # https://stackoverflow.com/questions/43380042/purpose-of-return-self-python
+        # NOTE: https://stackoverflow.com/questions/43380042/purpose-of-return-self-python
 
     def transform(self, X: pd.DataFrame) -> pd.DataFrame:
 
