@@ -35,7 +35,7 @@ def validate_inputs(*, input_data: pd.DataFrame) -> Tuple[pd.DataFrame, Optional
 
     try:
         MultipleHouseDataInputs(
-            inputs=validated_data.replace({np.nan: None})
+            inputs=validated_data.replace({np.nan: None}).to_dict(orient="records")
         )
     except ValidationError as error:
         errors = error.json()

@@ -2,7 +2,6 @@ import typing as t
 
 import numpy as np
 import pandas as pd
-from sklearn import pipeline
 
 from regression_model import __version__ as _version
 from regression_model.config.core import config
@@ -20,7 +19,7 @@ def make_prediction(
     """Make a prediction using a saved model pipeline."""
     data = pd.DataFrame(input_data)
     validated_data, errors = validate_inputs(input_data=data)
-    results = {"prediction":None, "version":_version, "errors":errors}
+    results = {"prediction": None, "version": _version, "errors": errors}
 
     if not errors:
         predictions = _price_pipe.predict(
