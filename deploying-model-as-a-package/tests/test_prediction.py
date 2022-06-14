@@ -1,5 +1,5 @@
 import math
-from unittest import result 
+from unittest import result
 
 import numpy as np
 
