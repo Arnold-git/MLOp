@@ -26,6 +26,9 @@ pip install arnold-house-price-regression-model
 from arnold-house-price-regression-model import make_prediction
 results = make_prediction(test_dataframe)
 ```
-
-
+### What I learned 
+- How to write clear production code for model deployment 
+- How to write test with [Pytest](https://docs.pytest.org/en/7.1.x/)
+- How to deploy a machine learning model as a python package
+- How to use [tox](https://tox.wiki/en/latest/index.html) for virtual environment management and testing automations 
 
