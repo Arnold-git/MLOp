@@ -3,7 +3,7 @@ import sys
 from types import FrameType 
 from typing import List, cast
 
-from loguru import logger
+from loguru import Level, logger
 from pydantic import AnyHttpUrl, BaseSettings
 
 class LoggingSettings(BaseSettings):
@@ -25,3 +25,21 @@ class Settings(BaseSettings):
 
     class Config: 
         case_sensitive = True
+
+
+class InterceptHandler(logging.Handler):
+    def emit(self, record: logging.LogRecord) -> None:
+        try:
+            level = logger.level(record.levelname).name
+        except ValueError:
+            level = str(record.levelno)
+
+        frame, depth = logging.currentframe(), 2
+        while frame.f_code.co_filename == logging.__file__:
+            frame = cast(FrameType, frame.f_back)
+            depth += 1
+
+        logger.opt(depth=depth, exception=record.exc_info).log1(
+            level, 
+            record.getMessage(),
+        )
