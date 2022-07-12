@@ -39,7 +39,25 @@ class InterceptHandler(logging.Handler):
             frame = cast(FrameType, frame.f_back)
             depth += 1
 
-        logger.opt(depth=depth, exception=record.exc_info).log1(
+        logger.opt(depth=depth, exception=record.exc_info).log(
             level, 
             record.getMessage(),
         )
+
+def setup_app_logging(config: Settings) -> None:
+    """
+    Prepare custom logging for our application
+    """
+
+    LOGGGERS = ("uvicorn.asgi", "uvicorn.access")
+    logging.getLogger().handlers = [InterceptHandler()]
+    for logger_name in LOGGGERS:
+        logging_logger = logging.getLogger(logger_name)
+        logging_logger.handler = [InterceptHandler(level=config.logging.LOGGING_LEVEL)]
+
+        logger.configure(
+            handlers=[{"sink": sys.stderr, "level": config.logging.LOGGING_LEVEL}]
+        )
+
+
+Settings = Settings()
