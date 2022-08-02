@@ -13,7 +13,7 @@ from regression_model.predict import make_prediction
 
 
 from app import __version__, schemas
-from app.config import Settings
+from app.config import settings
 
 api_router  =APIRouter()
 
@@ -23,7 +23,7 @@ def health() -> dict:
     Root Get
     """
     health = schemas.Health(
-        name=Settings.PROJECT_NAME, api_version =__version__, model_version=model_version
+        name=settings.PROJECT_NAME, api_version =__version__, model_version=model_version
     )
     return health.dict()
 
@@ -31,13 +31,13 @@ def health() -> dict:
 async def  predict(input_data: schemas.MultipleHouseDataInputs) -> Any:
 
     """
-    Prediction with arnold-house-price-regression-model
+    House Price Prediction with arnold-house-price-regression-model
     """
 
     input_df = pd.DataFrame(jsonable_encoder(input_data.input))
 
     logger.info(f"Making prediction on inputs: {input_data.input}")
-    results = make_prediction(input_data=input_df.replace({ np.nan: None}))
+    results = make_prediction(input_data=input_df.replace({ np.nan: None }))
 
     if results["errors"] is not None:
         logger.warning(f"Prediction validation error: {results.get('errors')}")

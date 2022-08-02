@@ -1,5 +1,4 @@
 from typing import Any, List, Optional
-from matplotlib.pyplot import cla
 
 from pydantic import BaseModel
 from regression_model.processing.validation import HouseDataInputSchema

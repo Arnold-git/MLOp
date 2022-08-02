@@ -3,7 +3,7 @@ import sys
 from types import FrameType 
 from typing import List, cast
 
-from loguru import Level, logger
+from loguru import logger
 from pydantic import AnyHttpUrl, BaseSettings
 
 class LoggingSettings(BaseSettings):
@@ -60,4 +60,4 @@ def setup_app_logging(config: Settings) -> None:
         )
 
 
-Settings = Settings()
+settings = Settings()
