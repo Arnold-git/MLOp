@@ -1,5 +1,6 @@
 from typing import Any, List, Optional
 
+
 from pydantic import BaseModel
 from regression_model.processing.validation import HouseDataInputSchema
 
@@ -8,11 +9,11 @@ class PredictionResults(BaseModel):
     version: str
     predictions: Optional[List[float]]
 
-class  MultipleHouseDataInputs(BaseModel):
-    input: List[HouseDataInputSchema]
+class MultipleHouseDataInputs(BaseModel):
+    inputs: List[HouseDataInputSchema]
 
     class Config:
-        some_extra = {
+        schema_extra = {
             "example": {
                 "inputs": [
                     {

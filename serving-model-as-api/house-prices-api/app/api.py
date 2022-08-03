@@ -34,12 +34,14 @@ async def  predict(input_data: schemas.MultipleHouseDataInputs) -> Any:
     House Price Prediction with arnold-house-price-regression-model
     """
 
-    input_df = pd.DataFrame(jsonable_encoder(input_data.input))
+    input_df = pd.DataFrame(jsonable_encoder(input_data.inputs))
 
-    logger.info(f"Making prediction on inputs: {input_data.input}")
+    logger.info(f"Making prediction on inputs: {input_data.inputs}")
     results = make_prediction(input_data=input_df.replace({ np.nan: None }))
 
     if results["errors"] is not None:
         logger.warning(f"Prediction validation error: {results.get('errors')}")
         raise HTTPException(status_code=400, detail=json.loads(results["errors"]))
     logger.info(f"Prediction results: {results.get('predictions')}")
+
+    return results
