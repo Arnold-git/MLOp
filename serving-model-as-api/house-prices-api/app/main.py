@@ -11,6 +11,16 @@ from app.config import settings, setup_app_logging
 
 setup_app_logging(config=settings)
 
+
+def customise_openapi(app):
+    if app.openapi_schema:
+        return app.openapi_schema(
+            title = "House Price prediction API",
+            version = "1.0",
+            description = "House Price Prediction API byn Arnold Ighiwiyisi",
+            routes = app.routes,
+        )
+
 app = FastAPI(
     title=settings.PROJECT_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json"
 )
@@ -38,6 +48,7 @@ def index(request: Request) -> Any:
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 app.include_router(root_router)
+customise_openapi(app)
 
 if settings.BACKEND_CORS_ORIGINS:
     app.add_middleware(
