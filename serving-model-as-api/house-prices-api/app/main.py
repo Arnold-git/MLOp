@@ -3,6 +3,7 @@ from typing import Any
 from fastapi import APIRouter, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
+from fastapi.openapi.utils import get_openapi
 from loguru import logger
 
 from app.api import api_router
@@ -14,12 +15,17 @@ setup_app_logging(config=settings)
 
 def customise_openapi(app):
     if app.openapi_schema:
-        return app.openapi_schema(
-            title = "House Price prediction API",
-            version = "1.0",
-            description = "House Price Prediction API byn Arnold Ighiwiyisi",
-            routes = app.routes,
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+
+        title = "House Price prediction API",
+        version = "1.0",
+        description = "House Price Prediction API by ArnoldIG",
+        routes = app.routes,
         )
+
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
 
 app = FastAPI(
     title=settings.PROJECT_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json"
