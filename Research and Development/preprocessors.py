@@ -18,7 +18,7 @@ class TemporalVariableTransformer(BaseEstimator, TransformerMixin):
 
         return self
 
-        # check
+        # NOTE
         # https://stackoverflow.com/questions/43380042/purpose-of-return-self-python
 
     def transform(self, X):
@@ -70,6 +70,7 @@ class MeanImputer(BaseEstimator, TransformerMixin):
     # put mean value for each variable in dictionary
     self.imputer_dict_ = X[self.variables].mean().to_dict()
     return self
+
   def transform(self, X):
     X = X.copy()
     for feature in self.variables:

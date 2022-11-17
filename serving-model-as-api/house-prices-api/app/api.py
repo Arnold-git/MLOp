@@ -42,4 +42,6 @@ async def  predict(input_data: schemas.MultipleHouseDataInputs) -> Any:
         raise HTTPException(status_code=400, detail=json.loads(results["errors"]))
     logger.info(f"Prediction results: {results.get('predictions')}")
 
+
+
     return results
