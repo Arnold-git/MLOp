@@ -1,0 +1,15 @@
+include *.txt
+include *.md
+recursive-include ./regression_model/*
+
+
+include src/VERSION
+
+
+include ./requirements/requirements.txt
+include ./requirements/test_requirements.txt
+exclude *.log
+exclude *.cfg
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
